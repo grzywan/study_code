@@ -1,0 +1,47 @@
+;kolos1.s03
+name kolos1
+
+extern _R
+rseg CODE
+mov psw, #_R
+
+mov R1, #0
+mov a, #65
+mov b, #2
+mov R0, a
+div ab
+mov R7, b
+mov a, b
+jz tak
+jnz nie
+
+tak:
+mov a, R0
+mov b, #2
+div ab
+mov 16, a
+mov SP, #64
+sjmp petla
+
+nie:
+mov a, R0
+mov b, #2
+mul ab
+mov 24, a
+mov SP, #64
+mov R0, #33
+mov a, #33
+sjmp petla
+
+petla:
+mov a, R0
+jz label
+
+push 18H
+
+dec a
+mov R0, a
+sjmp petla
+
+label:
+end
